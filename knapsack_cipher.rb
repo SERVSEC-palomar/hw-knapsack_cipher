@@ -66,5 +66,31 @@ class KnapsackCipher
       ) unless superknap.is_a? SuperKnapsack
 
     # TODO: implement this method
+    superknap = superknap.knapsack.reverse
+    modinverse = ModularArithmetic.invert(m, n)
+    decipher = cipherarray.map { |e| e * modinverse % n }
+    decipher = decipher.map { |e| solve(e, superknap)  }.join
   end
+
+  #Solving superincreasing knapscack 
+  
+  def self.solve( num, superknap )
+    number = superknap.map do |variable|
+      if num >= variable
+          num = num - variable
+          1
+        else
+          0
+        end
+    end.reverse.join
+    char = number.to_i(2).chr
+  end
+
+
 end
+
+
+
+
+
+
